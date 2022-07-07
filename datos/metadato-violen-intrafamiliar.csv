@@ -1,0 +1,16 @@
+METADATO;DESCRIPCION
+Serie de tiempo desde;2012
+Definición del indicador;Número de casos de violencia intrafamiliar en la ciudad por cada 100.000 habitantes
+Utilidad;La tasa de violencia intrafamiliar se constituye en uno de los principales indicadores de los problemas prioritarios en salud mental, permite comparar las frecuencias según localidad y focalizar los esfuerzos a los territorios más afectados
+Unidad de medición;Tasa por 100.000 habitantes
+Periodicidad;Semestral
+Fuente;"Subsistema de vigilancia epidemiológica de la violencia intrafamiliar, maltrato infantil y violencia sexual – SIVIM Bases definitivas 2012-2021 Junio. / • Proyecciones de población para Bogotá D.C., localidades DANE y SDP 2000-2015 de junio 13 del 2008 • Secretaría Distrital de Planeación. Subsecretaría de Información y Estudios Estratégicos. Dirección de Estudios Macro. Boletín No. 69, diciembre 2014. Proyecciones de población por localidades para Bogotá 2016 - 2020
+"
+Año;Periodo de recolección de información
+Área;Localidad de residencia del caso 
+Tipo de violencia;Categoría de violencia en la cual fue clasificado el caso
+Sexo;Categoría dada al caso de violencia según sea hombre o mujer
+No. Casos;Número de casos de víctimas de violencia intrafamiliar
+Población;Estimación de población según lugar de residencia
+Tasa por 100.000;Estimación de casos  de violencia intrafamiliar por cada 100.000 habitantes
+Formula de cálculo;Número de casos de víctimas de violencia intrafamiliar en un área y periodo determinado / Población en la misma área y periodo determinado * 100.000

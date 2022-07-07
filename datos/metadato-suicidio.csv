@@ -1,0 +1,13 @@
+METADATO;DESCRIPCION
+Serie de tiempo desde;2012
+Definición del indicador;Número muertes por suicidio en la ciudad según área de ocurrencia por cada 100.000 habitantes.
+Utilidad;Utilidad Monitorear el evento e identificar grupos vulnerables que requieren control y prevención del evento
+Unidad de medición;Tasa por 100.000 habitantes
+Periodicidad;Anual
+Fuente de Información Numerador;INMLCF-Instituto Nacional de Medicina Legal y Ciencias Forenses 2014 – 2021 Junio Proyecciones de población para Bogotá D.C., localidades DANE y SDP 2000-2015 de junio 13 del 2008 Secretaría Distrital de Planeación. Subsecretaría de Información y Estudios Estratégicos. • Dirección de Estudios Macro. Boletín No. 69, diciembre 2014. Proyecciones de población por localidades para Bogotá 2016 - 2020
+Área;Localidad de residencia del caso 
+Año;Periodo de recolección de información
+Casos;Número de casos de intento de suicidio en menores de 18 años por localidad de residencia
+Proyección poblacional;Proyección de población según lugar de residencia
+Tasa por 10.000;Casos de suicidio consumado por cada 100.000 habitantes
+Formula de cálculo;Número de casos de suicidio registrados a través del Instituto Nacional de Medicina Legal y Ciencia Forense - INMLCF con residencia en Bogotá / Población a mitad del periodo * 100.000 Habitantes
