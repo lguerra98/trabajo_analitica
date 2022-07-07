@@ -12,7 +12,7 @@ localidad VARCHAR(150),
 condiciones VARCHAR(150),
 porcentaje VARCHAR(150));
 
-CREATE TABLE suicidios(
+CREATE TABLE rawsuicidios(
 area VARCHAR(100),
 año VARCHAR(20),
 grupo_edad VARCHAR(20),
@@ -20,7 +20,7 @@ sexo VARCHAR(15),
 casos INTEGER,
 CONSTRAINT CHK_Person CHECK (sexo LIKE 'Hombre' OR sexo LIKE 'Mujer'));
 
-CREATE TABLE suicidios(
+CREATE TABLE rawsuicidios(
 area VARCHAR(100),
 año VARCHAR(20),
 grupo_edad VARCHAR(20),
@@ -44,3 +44,20 @@ tasa_x100h VARCHAR(10));
 CREATE TABLE violen_intfam AS (SELECT EXTRACT(YEAR FROM(to_date(SUBSTRING(año,1,4), 'YYYY'))) AS año, area, type_violen, sexo, to_number(REPLACE(n_casos, '.', ''), '9999999') AS n_casos, to_number(REPLACE(poblacion, '.', ''), '9999999') AS poblacion, to_number(tasa_x100h, '9999D9') AS tasa_x100h FROM rawviolen_intfam
 GROUP BY año, area, type_violen, sexo, n_casos, poblacion, tasa_x100h
 ORDER BY año, sexo DESC, type_violen);
+
+
+-------------------------------------------bigquery---------------------------------------
+WITH violen_intfam AS (SELECT EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, area, type_violen, sexo, CAST(REPLACE(n_casos, '.', '')AS numeric) AS n_casos, CAST(REPLACE(poblacion, '.', '')AS int64) AS poblacion, CAST(REPLACE(tasa_x100h, ',', '.') AS float64) AS tasa_x100h FROM `analiticanegocios1.Salud.rawviolen_intfam`
+GROUP BY ano, area, type_violen, sexo, n_casos, poblacion, tasa_x100h
+ORDER BY ano, sexo DESC, type_violen)
+SELECT * FROM violen_intfam;
+
+WITH suicidios AS (SELECT area, EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, grupo_edad, sexo, casos FROM `sunlit-inn-353723.trabajo_final_analitica.rawsuicidios`
+GROUP BY ano, grupo_edad, area, sexo, casos
+ORDER BY ano, area, sexo, grupo_edad)
+SELECT * FROM suicidios;
+
+WITH condiciones_vida AS (SELECT localidad, condiciones, CAST(REPLACE(porcentaje, ',', '.') AS NUMERIC) AS porcentaje FROM `sunlit-inn-353723.trabajo_final_analitica.rawcondiciones_vida`
+GROUP BY localidad, condiciones, porcentaje
+ORDER BY localidad DESC)
+SELECT * FROM condiciones_vida
