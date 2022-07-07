@@ -1,0 +1,46 @@
+CREATE TABLE condiciones_vida AS (
+SELECT localidad, condiciones, to_number(porcentaje, '99D99') AS porcentaje FROM rawcondiciones_vida
+GROUP BY localidad, condiciones, porcentaje
+ORDER BY localidad DESC);
+
+
+\copy condiciones_vida FROM 'C:\Users\LUKAS\Documents\Clases\Analitica de negocios\trabajo_git\datos\condicionesvida.csv' delimiter ';' csv header
+
+
+CREATE TABLE rawcondiciones_vida (
+localidad VARCHAR(150),
+condiciones VARCHAR(150),
+porcentaje VARCHAR(150));
+
+CREATE TABLE suicidios(
+area VARCHAR(100),
+año VARCHAR(20),
+grupo_edad VARCHAR(20),
+sexo VARCHAR(15),
+casos INTEGER,
+CONSTRAINT CHK_Person CHECK (sexo LIKE 'Hombre' OR sexo LIKE 'Mujer'));
+
+CREATE TABLE suicidios(
+area VARCHAR(100),
+año VARCHAR(20),
+grupo_edad VARCHAR(20),
+sexo VARCHAR(15) CHECK(sexo LIKE 'Hombre' OR sexo LIKE 'Mujer'),
+casos INTEGER);
+
+CREATE TABLE suicidios AS (SELECT area, EXTRACT(YEAR FROM(to_date(SUBSTRING(año,1,4), 'YYYY'))) AS año, grupo_edad, sexo, casos FROM rawsuicidios
+GROUP BY año, grupo_edad, area, sexo, casos
+ORDER BY año, area, sexo, grupo_edad)
+
+CREATE TABLE rawviolen_intfam(
+año VARCHAR(20),
+area VARCHAR(20),
+type_violen VARCHAR(25),
+sexo VARCHAR(20) CHECK(TRIM(sexo) LIKE 'Hombre' OR TRIM(sexo) LIKE 'Mujer' OR TRIM(sexo) LIKE 'Total _%'),
+n_casos VARCHAR(15),
+poblacion VARCHAR(20),
+tasa_x100h VARCHAR(10));
+
+
+CREATE TABLE violen_intfam AS (SELECT EXTRACT(YEAR FROM(to_date(SUBSTRING(año,1,4), 'YYYY'))) AS año, area, type_violen, sexo, to_number(REPLACE(n_casos, '.', ''), '9999999') AS n_casos, to_number(REPLACE(poblacion, '.', ''), '9999999') AS poblacion, to_number(tasa_x100h, '9999D9') AS tasa_x100h FROM rawviolen_intfam
+GROUP BY año, area, type_violen, sexo, n_casos, poblacion, tasa_x100h
+ORDER BY año, sexo DESC, type_violen);
