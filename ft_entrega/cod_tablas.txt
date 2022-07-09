@@ -47,12 +47,12 @@ ORDER BY año, sexo DESC, type_violen);
 
 
 -------------------------------------------bigquery---------------------------------------
-WITH violen_intfam AS (SELECT EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, area, type_violen, sexo, CAST(REPLACE(n_casos, '.', '')AS numeric) AS n_casos, CAST(REPLACE(poblacion, '.', '')AS int64) AS poblacion, CAST(REPLACE(tasa_x100h, ',', '.') AS float64) AS tasa_x100h FROM `analiticanegocios1.Salud.rawviolen_intfam`
+WITH violen_intfam AS (SELECT EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, area, type_violen, TRIM(sexo) AS sexo, CAST(REPLACE(n_casos, '.', '')AS numeric) AS n_casos, CAST(REPLACE(poblacion, '.', '')AS int64) AS poblacion, CAST(REPLACE(tasa_x100h, ',', '.') AS float64) AS tasa_x100h FROM `sunlit-inn-353723.trabajo_final_analitica.rawviolen_intfam`
 GROUP BY ano, area, type_violen, sexo, n_casos, poblacion, tasa_x100h
 ORDER BY ano, sexo DESC, type_violen)
 SELECT * FROM violen_intfam;
 
-WITH suicidios AS (SELECT area, EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, grupo_edad, sexo, casos FROM `sunlit-inn-353723.trabajo_final_analitica.rawsuicidios`
+WITH suicidios AS (SELECT area, EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, grupo_edad, sexo, CAST(casos AS INT64) AS casos FROM `sunlit-inn-353723.trabajo_final_analitica.rawsuicidios`
 GROUP BY ano, grupo_edad, area, sexo, casos
 ORDER BY ano, area, sexo, grupo_edad)
 SELECT * FROM suicidios;
