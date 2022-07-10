@@ -35,7 +35,7 @@ CREATE TABLE rawviolen_intfam(
 año VARCHAR(20),
 area VARCHAR(20),
 type_violen VARCHAR(25),
-sexo VARCHAR(20) CHECK(TRIM(sexo) LIKE 'Hombre' OR TRIM(sexo) LIKE 'Mujer' OR TRIM(sexo) LIKE 'Total _%'),
+sexo VARCHAR(20) CHECK(LOWER(TRIM(sexo)) LIKE 'hombre' OR LOWER(TRIM(sexo)) LIKE 'mujer' OR LOWER(TRIM(sexo)) LIKE 'total general'),
 n_casos VARCHAR(15),
 poblacion VARCHAR(20),
 tasa_x100h VARCHAR(10));

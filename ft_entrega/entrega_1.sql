@@ -13,12 +13,12 @@ sexo VARCHAR(15) CHECK(sexo LIKE 'Hombre' OR sexo LIKE 'Mujer'),
 casos INTEGER);
 
 CREATE TABLE rawviolen_intfam(
-ano INT64 NOT NULL,
+ano INTEGER NOT NULL,
 area VARCHAR(20),
 type_violen VARCHAR(25),
-sexo VARCHAR(20) CHECK(TRIM(sexo) LIKE 'Hombre' OR TRIM(sexo) LIKE 'Mujer' OR TRIM(sexo) LIKE 'Total _%'),
-n_casos INT64,
-poblacion INT64,
+sexo VARCHAR(20) CHECK(LOWER(TRIM(sexo)) LIKE 'hombre' OR LOWER(TRIM(sexo)) LIKE 'mujer' OR LOWER(TRIM(sexo)) LIKE 'total general'),
+n_casos INTEGER,
+poblacion INTEGER,
 tasa_x100h NUMERIC);
 
 /*CONSULTAS BIGQUERY*/
