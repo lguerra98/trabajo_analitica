@@ -9,7 +9,7 @@ CREATE TABLE rawsuicidios(
 area VARCHAR(100),
 ano INTEGER NOT NULL,
 grupo_edad VARCHAR(25),
-sexo VARCHAR(15) CHECK(sexo LIKE 'Hombre' OR sexo LIKE 'Mujer'),
+sexo VARCHAR(15) CHECK(LOWER(TRIM(sexo)) LIKE 'hombre' OR LOWER(TRIM(sexo)) LIKE 'mujer'),
 casos INTEGER);
 
 CREATE TABLE rawviolen_intfam(
