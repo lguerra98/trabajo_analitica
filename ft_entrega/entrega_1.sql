@@ -24,16 +24,15 @@ tasa_x100h NUMERIC);
 /*CONSULTAS BIGQUERY*/
 
 /*Guardar los resultados de las siguientes consultas en tablas de bigquery como violen_intfam, suicidios, condiciones_vida */
-SELECT EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, area, type_violen, TRIM(sexo) AS sexo, CAST(REPLACE(n_casos, '.', '')AS numeric) AS n_casos, CAST(REPLACE(poblacion, '.', '')AS int64) AS poblacion, CAST(REPLACE(tasa_x100h, ',', '.') AS float64) AS tasa_x100h FROM `sunlit-inn-353723.trabajo_final_analitica.rawviolen_intfam`
+SELECT EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, area, type_violen, TRIM(sexo) AS sexo, CAST(REPLACE(n_casos, '.', '')AS int64) AS n_casos, CAST(REPLACE(poblacion, '.', '')AS int64) AS poblacion, CAST(REPLACE(tasa_x100h, ',', '.') AS float64) AS tasa_x100h FROM `sunlit-inn-353723.trabajo_final_analitica.rawviolen_intfam`
 GROUP BY ano, area, type_violen, sexo, n_casos, poblacion, tasa_x100h
 ORDER BY ano, sexo DESC, type_violen;
-
 
 SELECT area, EXTRACT(YEAR FROM CAST(SUBSTRING(ano,1,4) AS DATE FORMAT 'YYYY')) AS ano, grupo_edad, sexo, CAST(casos AS INT64) AS casos FROM `sunlit-inn-353723.trabajo_final_analitica.rawsuicidios`
 GROUP BY ano, grupo_edad, area, sexo, casos
 ORDER BY ano, area, sexo, grupo_edad;
 
-SELECT localidad, condiciones, CAST(REPLACE(porcentaje, ',', '.') AS NUMERIC) AS porcentaje FROM `sunlit-inn-353723.trabajo_final_analitica.rawcondiciones_vida`
+SELECT localidad, condiciones, CAST(REPLACE(porcentaje, ',', '.') AS float64) AS porcentaje FROM `sunlit-inn-353723.trabajo_final_analitica.rawcondiciones_vida`
 GROUP BY localidad, condiciones, porcentaje
 ORDER BY localidad DESC;
 

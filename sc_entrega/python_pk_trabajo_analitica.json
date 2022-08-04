@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sunlit-inn-353723",
+  "private_key_id": "535201bae9982720c21db784b46e3664a465a726",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD4hdV24TIKXM2e\nG6ge1B7PLlpd03FVSLNKo2DSWOxq5A8fIDeLr6bkXheA4yue1a2biZ0IemaOfaad\nJXdcTGw2pFL47gAL0bwQPbVcTFU4vcNnFK9kP3K6LbioT2Ocesoz+h8Cfu1b+Xip\n5P5BGzfSivAdjwQvEKA0t2K73pdGt60wm5umyCFmrgw5eo3WVqaT7m0usD+CY/Ud\nCSFcQzw7kIPPkBBJKaMLLQdcqnURhWIn4AmKv+aXVw1V03NRjoiYTR9wXTVfDF1g\nXELHM7/08MB8dTYisuBovYQwVOnHGACk2G+Hsvlt+E1juV1jfnmydH9Oh1QycnF3\no9D9nlfTAgMBAAECggEAV5ntVbsphWeS/wFmsH864PLI3bvTfiljMZMHZP39T+xV\nvDYB/lYLMQJNrJvm21Ucne/TD5L9pYp6+XekbD9wAY7IxIA4OfJTJTJrRD6P57FU\nOHidHmwTB7doGMPrK9RIhCvNVHbjOgFk3BYg3Vg3xBo/a1vnMKPepNZjki9zCXSx\nX7Ctziqqmqqb3J0CabwlXCvWLKrv0LM1Gv7j/5Ny0IBZgC8Az/6GpsFd4H71vu5P\nnkmOgUZZCBOmeKN/CBV/yimL94IW8uca+ummkBhE5hWlXiLpS71BN1h8GSwBkrnz\nWfvW0RkKiRIyrjhEYpYlqWBFpNGWhID1xrZ1t2ulmQKBgQD9pA2Pz2lnonNY4QFd\n7blN2BjcSgDfL3TyNKSuLegR7HactK22mVmtBPYFI6YfpyiOslYz7ytrTYRW5hZ5\n0z+eKCxOknCgRhhCIJwdZDXBUyfJX8RB8/UOghACPiQinsNTCbkxitwUecQ7OUPG\nJFyWZSIFxoQocMORO9QK9MtKRwKBgQD61ZggC4mriKmUNA9joU7uUrMFMN76a4Ya\nNeMjBX4fufjS2ktFyK/qnjZWNoZ8g1+fpS1Qo7GI29y5eDz+ry8fol6Ei86+xq6O\n/KHjNYw1BHN5uWgTSCsFK3cztmoP/WqWAKPZTKQOJMRFDHj/TlpTGajhC4zp4rC+\n4ZH0ZuTAFQKBgQDltx3dQFFLXfKv7WDKjBIGsY+ae5+cgyOcdRcs9UC4cvvd4zlt\nJif0roiOkQHUqxTtYBD4ikU9soAIH+z9OtjkSagPJUvBrJot0dDyQZ75z3E6TXS2\n8tbf4+XR0ivx+u4WF7lVaFj4ZmvV44BBRQ9h2ohcyLVK1w4YTCI4Jgqz4wKBgQDW\nSmZFcjXyMrXVZEiFcEjTeBly5NaKEBQoDkN3JvkiN6oo0M+f1Zzcjr+TFc/9TesC\no4W8L6y7ZEIEvYE2gAl9OCURjbNZ7rkwdQoE5zlaDextYIVWe8AtEX4r0rp34KMP\ndYqFWWGKp8R5zPcN/i1Sc0iAwnJnWgBvgpxDtSfWJQKBgBGfT9Ps3WEqvcHMMdy/\n2tX4TMcuGZj/+71aVhWhOEAUjL6FpTDDMiq3XYLH545YQE7dEUMchXo7YNPjTTjZ\nQOsQycSx7kdhNdgXr9KOZuiti8gnlmzUkXq69efo89Gz8CUCVSmP4j7uudn2Ceyt\nJyZFVHE3OblQ61vAKOH7h80M\n-----END PRIVATE KEY-----\n",
+  "client_email": "python-trabajo-analitica@sunlit-inn-353723.iam.gserviceaccount.com",
+  "client_id": "110828710178382664751",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/python-trabajo-analitica%40sunlit-inn-353723.iam.gserviceaccount.com"
+}
