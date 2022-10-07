@@ -6,8 +6,9 @@ import base64
 import io
 import numpy as np
 import geojson
+from datos import data
 
-
+get_data()
 
 
 def main():
