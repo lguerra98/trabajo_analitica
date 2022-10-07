@@ -42,7 +42,7 @@ def main():
     
     
        
-    st.markdown("<h1 style='text-align: center; color: black;'>Análisis de la salud mental en la ciudad de Bototá</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: black;'>Análisis de la salud mental en la ciudad de Bogotá</h1>", unsafe_allow_html=True)
        
     c1, c2, c3 = st.columns((1,1,1))
     
@@ -312,7 +312,7 @@ def main():
         st.plotly_chart(fig)
         
         # if st.checkbox("Ver Valor de Correlación"):
-        yr = st.slider("Año", df['year'].min(), df['year'].max())
+        yr = st.slider("Año", int(df['year'].min()), int(df['year'].max()))
         st.latex(r"\rho={}".format(round(df.groupby('year').corr().loc[(yr,'suicidios'), 'violencia'], 2)))
         
         
@@ -495,7 +495,7 @@ def main():
         st.plotly_chart(fig)
         
         # if st.checkbox("Ver Valor de Correlación"):
-        yr = st.slider("Año", df['year'].min(), df['year'].max())
+        yr = st.slider("Año", int(df['year'].min()), int(df['year'].max()))
         st.latex(r"\rho={}".format(round(df.groupby('year').corr().loc[(yr,'suicidios'), 'violencia'], 2)))
         
         
@@ -866,7 +866,7 @@ def main():
         st.plotly_chart(fig)
         
         # if st.checkbox("Ver Valor de Correlación"):
-        yr = st.slider("Año", df['year'].min(), df['year'].max())
+        yr = st.slider("Año", int(df['year'].min()), int(df['year'].max()))
         st.latex(r"\rho={}".format(round(df.groupby('year').corr().loc[(yr,'suicidios'), 'violencia'], 2)))
         
         
