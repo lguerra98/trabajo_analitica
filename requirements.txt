@@ -1,7 +1,6 @@
 pandas
 plotly
 streamlit
-io
 numpy
 geojson
 
