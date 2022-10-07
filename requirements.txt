@@ -1,0 +1,10 @@
+pandas
+plotly
+streamlit
+openpyxl
+pydeck
+io
+numpy
+geojson
+
+
