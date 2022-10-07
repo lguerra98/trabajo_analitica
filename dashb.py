@@ -53,7 +53,7 @@ def main():
     c1.info('\n\n'.join(x))
     
     c2.markdown("<h6 style='text-align: center; color:black;'>Localidades con mas casos de Violencia</h6>", unsafe_allow_html=True)
-    df = vi_df.query("localidad != 'distrito' & year >= 2015 & tipo_de_violencia != 'intrafamiliar' & sexo == 'Total general'").groupby("localidad", as_index=False)["no_casos"].sum().sort_values("no_casos", ascending=False).head()
+    df = vi_df.query("localidad != 'distrito' & tipo_de_violencia != 'intrafamiliar' & sexo == 'Total general'").groupby("localidad", as_index=False)["no_casos"].sum().sort_values("no_casos", ascending=False).head()
     # df = vi_df.query("localidad != 'distrito' & tipo_de_violencia != 'intrafamiliar' & sexo == 'Total general'").groupby('localidad', as_index=False)["tasa_por_100000"].sum().sort_values("tasa_por_100000", ascending=False).head()
     x = ['**{}**: {:.0f}'.format(df.iloc[i, 0].title(), df.iloc[i, 1]) for i in range(df.shape[0])]
     c2.info('\n\n'.join(x))
