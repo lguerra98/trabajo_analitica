@@ -3,5 +3,5 @@ plotly
 streamlit
 numpy
 geojson
-
+unidecode
 
