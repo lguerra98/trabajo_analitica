@@ -4,5 +4,5 @@ streamlit
 numpy
 geojson
 unidecode
-statsmodel
+statsmodels
 
