@@ -6,3 +6,5 @@ geojson
 unidecode
 statsmodels
 datetime
+streamlit-option-menu
+os

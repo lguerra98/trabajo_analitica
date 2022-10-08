@@ -7,16 +7,21 @@ import io
 import numpy as np
 import geojson
 from datos import get_data
+from streamlit_option_menu import option_menu 
+import os
 
-get_data()
 
 
 def main():
     @st.cache(persist=True)
     def load_data():
+        get_data()
         df_1 = pd.read_csv("suicidios_mod.csv")
         df_2 = pd.read_csv("violencia_mod.csv")
         df_3 = pd.read_csv("condicion_mod.csv")
+        os.remove("suicidios_mod.csv")
+        os.remove("violencia_mod.csv")
+        os.remove("condicion_mod.csv")
         return df_1, df_2, df_3
       
     def get_table_download_link(df):
@@ -32,13 +37,23 @@ def main():
         html_bytes = buffer.getvalue().encode()
         
         return html_bytes
-       
-       
+    
+    with st.sidebar:
+        menu = option_menu("Info", ["Suicidios", "Violencia Intrafamiliar", "Condiciones de Vida", "---"], menu_icon='info-circle', default_index=-1,
+                           icons=["emoji-frown", "people", "coin"], 
+                           styles={"menu-title":{"font-size": "35px", "text-align": "left", "margin":"0px"}, 
+                                   "nav-link-selected":{"background-color":"rgba(39, 115, 245, 0.8)"},
+                                   "icon":{"color":"black", "font-size":"20px"},
+                                   "menu-icon":{"font-size":"30px"},
+                                   "nav-link":{"color":"black", "font-size":"15px"}})
+        
+    
+    
     sc_df, vi_df, cv_df = load_data()
     
-    st.sidebar.markdown("<h2 style='text-align: left; color: black;'>Elija el tipo de información a visualizar</h2>", unsafe_allow_html=True)
+    # st.sidebar.markdown("<h2 style='text-align: left; color: black;'>Elija el tipo de información a visualizar</h2>", unsafe_allow_html=True)
     
-    datos = st.sidebar.selectbox("", ("Todo","Suicidios", "Violencia", "Condiciones de Vida"))
+    
     
     
        
@@ -64,7 +79,7 @@ def main():
     x = ['**{}**: {:.2f}%'.format(df.iloc[i, 0].title(), df.iloc[i, 1]) for i in range(df.shape[0])]
     c3.info('\n\n'.join(x))
     
-    if datos == "Condiciones de Vida":
+    if menu == "Condiciones de Vida":
     
     # --------------------------
         st.markdown("<h2 style='text-align: center; color: black;'>Porcentaje promedio de condiciones de vida total en Bogotá</h2>", unsafe_allow_html=True)
@@ -117,9 +132,12 @@ def main():
         st.plotly_chart(fig)
         st.latex(r"\rho={}".format(round(df.corr().loc['porcentaje', 'tasa_por_100000'], 2))) 
     
-    
+        _ = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708l2 2z"/><path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/></svg>'
+        st.markdown(_ + '     ' + get_table_download_link(cv_df), unsafe_allow_html=True)
+        
+        
     # -----------------------
-    elif datos == "Suicidios":
+    elif menu == "Suicidios":
         # -------------------
         # c1, c2 = st.columns((1,1))
         
@@ -321,7 +339,10 @@ def main():
         
         st.download_button(label='Descargar HTML', data=html_bytes, file_name='fig.html', mime='text/html')
         
-    elif datos == 'Violencia':
+        _ = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708l2 2z"/><path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/></svg>'
+        st.markdown(_ + '     ' + get_table_download_link(sc_df), unsafe_allow_html=True)
+        
+    elif menu == 'Violencia Intrafamiliar':
        
         
         # ---------
@@ -533,9 +554,15 @@ def main():
         fig.data[-1]['hovertemplate'] = '<extra></extra>'
                 
         st.plotly_chart(fig)
-        st.latex(r"\rho={}".format(round(df.corr().loc['porcentaje', 'tasa_por_100000'], 2)))    
+        st.latex(r"\rho={}".format(round(df.corr().loc['porcentaje', 'tasa_por_100000'], 2)))
+        
+        _ = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708l2 2z"/><path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/></svg>'
+        st.markdown(_ + '     ' + get_table_download_link(sc_df), unsafe_allow_html=True)
     
     else:
+        
+                
+        
         # --------------------------
         st.markdown("<h2 style='text-align: center; color: black;'>Porcentaje promedio de condiciones de vida total en Bogotá</h2>", unsafe_allow_html=True)
         
@@ -544,8 +571,8 @@ def main():
         
         # Creación de gráfica
         fig = px.pie(df, values='porcentaje', names='condiciones_de_vida',
-               # title='<b>Porcentaje promedio de condiciones de vida total en Bogotá<b>',
-               color_discrete_sequence=px.colors.qualitative.Safe, opacity=1, hover_data={'condiciones_de_vida':False, 'porcentaje':False},)
+                # title='<b>Porcentaje promedio de condiciones de vida total en Bogotá<b>',
+                color_discrete_sequence=px.colors.qualitative.Safe, opacity=1, hover_data={'condiciones_de_vida':False, 'porcentaje':False},)
         
         # Agregar detalles a gráfica
         fig.update_layout(title=dict(x=0.5), paper_bgcolor='rgba(0,0,0,0)')
@@ -614,10 +641,10 @@ def main():
         
         # Creación de gráfica
         fig = px.line(df, x='year', y='tasa_por_100000', facet_col='localidad', facet_col_wrap=5, markers=True,
-                 # title='<b>Evolución anual de la tasa de suicidios por cada 100k habitantes por localidad<b>', 
-                 template='plotly_white',
-                 labels={'year':'<b>Año</b>', 'tasa_por_100000':'<b>Tasa por<br>100K habs</b>'}, color_discrete_sequence=['lightskyblue'], hover_name='localidad',
-                 range_y=[-2, (df['tasa_por_100000'].max() + 5)])
+                  # title='<b>Evolución anual de la tasa de suicidios por cada 100k habitantes por localidad<b>', 
+                  template='plotly_white',
+                  labels={'year':'<b>Año</b>', 'tasa_por_100000':'<b>Tasa por<br>100K habs</b>'}, color_discrete_sequence=['lightskyblue'], hover_name='localidad',
+                  range_y=[-2, (df['tasa_por_100000'].max() + 5)])
         
         # Agregar detalles a gráfica
         fig.for_each_annotation(lambda a: a.update(text=a.text.title().split("=")[-1]))
@@ -635,9 +662,9 @@ def main():
             # Creación de gráfica
             fig = px.line(df, x='year', y='tasa_por_100000', markers=True,
                       title=f'<b>{lc}<b>', 
-                     template='plotly_white',
-                     labels={'year':'<b>Año</b>', 'tasa_por_100000':'<b>Tasa por<br>100K habs</b>'}, color_discrete_sequence=['lightskyblue'], hover_name='localidad',
-                     range_y=[-2, (df['tasa_por_100000'].max() + 5)])
+                      template='plotly_white',
+                      labels={'year':'<b>Año</b>', 'tasa_por_100000':'<b>Tasa por<br>100K habs</b>'}, color_discrete_sequence=['lightskyblue'], hover_name='localidad',
+                      range_y=[-2, (df['tasa_por_100000'].max() + 5)])
             
             # Agregar detalles a gráfica
            
@@ -658,9 +685,9 @@ def main():
         
         # Creación de gráfica
         fig = px.line(df, x='year', y='casos', markers=True, template='plotly_white', text='casos',
-                     labels={'casos':'<b>Casos de suicidio</b>', 'year':'<b>Año</b>'}, 
-                     # title='<b>Casos anuales de suicidio<b>',
-                     color_discrete_sequence=['rgba(30, 124, 55, 0.55)'], hover_data={'year':False, 'casos':False},)
+                      labels={'casos':'<b>Casos de suicidio</b>', 'year':'<b>Año</b>'}, 
+                      # title='<b>Casos anuales de suicidio<b>',
+                      color_discrete_sequence=['rgba(30, 124, 55, 0.55)'], hover_data={'year':False, 'casos':False},)
         
         # Agregar detalles a gráfica
         fig.update_layout(title={'x':0.5}, paper_bgcolor='rgba(0,0,0,0)')
@@ -680,7 +707,7 @@ def main():
         
         # Creación de gráfica
         fig = go.Figure([go.Bar(x=df['year'], y=df['casos'], yaxis='y1', name='Suicidios', marker={'color':'rgba(182, 131, 227, 0.88)'}),
-                         go.Scatter(x=df['year'], y=df['porcentaje'], yaxis='y2', name='Porcentaje', hovertemplate='%{y:.1%}', marker={'color': '#000000'})])
+                          go.Scatter(x=df['year'], y=df['porcentaje'], yaxis='y2', name='Porcentaje', hovertemplate='%{y:.1%}', marker={'color': '#000000'})])
         
         # Agregar detalles a gráfica
         fig.update_layout(template='plotly_white', showlegend=False, hovermode='x', bargap=.3, paper_bgcolor='rgba(0,0,0,0)',
@@ -724,16 +751,16 @@ def main():
         
         # Creación de gráfica
         fig = px.pie(df, values='no_casos', names='tipo_de_violencia', 
-                     # title='<b>Porcentaje de tipos de violencia en Bogotá</b>',
-                     color_discrete_sequence=px.colors.qualitative.Vivid, hover_name='tipo_de_violencia', hole=0.5,
-                     width=440)
+                      # title='<b>Porcentaje de tipos de violencia en Bogotá</b>',
+                      color_discrete_sequence=px.colors.qualitative.Vivid, hover_name='tipo_de_violencia', hole=0.5,
+                      width=440)
         
         # Agregar detalles a gráfica
         fig.update_traces(legendgrouptitle={'text':'<b>Tipo de violencia</b><br>'}, marker={'line':{'color':'white', 'width':1.5}},
-                         textfont={'color':'white'}, hovertemplate='<b>%{hovertext}</b><br>Casos:%{value:.2s}<extra></extra>',
-                         textposition='inside')
+                          textfont={'color':'white'}, hovertemplate='<b>%{hovertext}</b><br>Casos:%{value:.2s}<extra></extra>',
+                          textposition='inside')
         fig.update_layout(title=dict(x=0.5), legend={'orientation':'v', 'title':{'side':'left'}, 'x':-0.45}, paper_bgcolor='rgba(0,0,0,0)',
-                         annotations=[{'text':f'<b>Total<br>{int(df["no_casos"].sum())}</b>', 'showarrow':False, 'font':{'size':25}}])
+                          annotations=[{'text':f'<b>Total<br>{int(df["no_casos"].sum())}</b>', 'showarrow':False, 'font':{'size':25}}])
         
         c2.plotly_chart(fig)
         
@@ -804,7 +831,7 @@ def main():
             fill_color='lightgrey',
             line_color='darkslategray'),
             cells=dict(values=[df2[i] for i in df2.columns],fill_color='white',line_color='lightgrey'))
-           ])
+            ])
         fig.update_layout(width=400, height=400)
         
         c2.write(fig)
@@ -907,16 +934,20 @@ def main():
         st.plotly_chart(fig)
         st.latex(r"\rho={}".format(round(df.corr().loc['porcentaje', 'tasa_por_100000'], 2))) 
     
-    st.title("          ")        
-    st.markdown("<h5 style='text-align: left; color: blue;'>Enlaces para descarga de datos</h5>", unsafe_allow_html=True)
     
-    
-    c1, c2, c3 = st.columns((1,1,1))
-    
-    c1.download_button(label='Suicidios', data=sc_df.to_csv(), file_name='suicidios.csv', mime='text/csv')
-    c2.download_button(label='Condiciones de Vida', data=cv_df.to_csv(), file_name='condiciones_de_vida.csv', mime='text/csv')
-    c3.download_button(label='Violencia Intrafamiliar', data=vi_df.to_csv(), file_name='violencia_intrafamiliar.csv', mime='text/csv')
    
+        # st.experimental_rerun()
+    # st.title("          ")        
+    # st.markdown("<h5 style='text-align: left; color: blue;'>Enlaces para descarga de datos</h5>", unsafe_allow_html=True)
+    
+    
+    
+    # c1, c2, c3 = st.columns((1,1,1))
+    
+    # c1.download_button(label='', data=sc_df.to_csv(), file_name='suicidios.csv', mime='text/csv')
+    # c2.download_button(label='Condiciones de Vida', data=cv_df.to_csv(), file_name='condiciones_de_vida.csv', mime='text/csv')
+    # c3.download_button(label='Violencia Intrafamiliar', data=vi_df.to_csv(), file_name='violencia_intrafamiliar.csv', mime='text/csv')
+    
         
 if __name__ == '__main__':
     main()
@@ -946,10 +977,6 @@ if __name__ == '__main__':
 
 # print(df)
 # fig.write_html("My3dPlot.html")
-
-
-
-
 
 
 
