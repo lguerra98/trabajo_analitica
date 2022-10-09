@@ -1,0 +1,9 @@
+pandas
+plotly
+streamlit
+numpy
+geojson
+unidecode
+statsmodels
+datetime
+streamlit-option-menu
